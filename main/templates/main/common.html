@@ -1,0 +1,56 @@
+{% extends "main/base.html" %}                                                                                                     │
+{% load staticfiles %}  
+{% block extrajs %}
+	<script src="{% static 'main/js/clipboard.min.js' %}"></script>
+	<script src="{% static 'main/js/common.js' %}"></script>
+{% endblock %}
+{% block content %}
+	<article class="base">
+		<h3>text</h3>
+		<textarea class="text" id="text"></textarea>
+		<br>
+		<button class="btn copy" data-clipboard-target="#text" type="button">Copy<span class="big-screen"> to clipboard</span></button>
+	</article>
+	<div class="flex-container">
+		<article class="base">
+			<h3>binary</h3>
+			<textarea class="binary" id="binary"></textarea>
+			<br>
+			<button class="btn" title="Groups the numbers 8 & 8 (aka 8 bit numbers)" id="eightbin" type="button">8-bit</button>
+			<button class="btn copy spacebtn" data-clipboard-target="#binary" type="button">Copy<span class="big-screen"> to clipboard</span></button>
+			<button class="btn" id="sixteenbin" title="Groups the numbers 16 & 16 (aka 16 bit numbers)" type="button">16-bit</button>
+		</article>
+		<article class="base">
+			<h3>hex</h3>
+			<textarea class="hex" id="hex"></textarea>
+			<br>
+			<button class="btn" id="eighthex" title="Groups the numbers 2 & 2 (aka 8 bit numbers)" type="button">8-bit</button>
+			<button class="btn copy spacebtn" data-clipboard-target="#binary" type="button">Copy<span class="big-screen"> to clipboard</span></button>
+			<button class="btn" id="sixteenhex" title="Groups the numbers 4 & 4 (aka 16 bit numbers)" type="button">16-bit</button>
+		</article>
+		<article class="base">
+			<h3>base64</h3>
+			<textarea class="base64" id="base64"></textarea>
+			<br>
+			<button class="btn copy" data-clipboard-target="#base64" type="button">Copy<span class="big-screen"> to clipboard</span></button>
+		</article>
+		<article class="base">
+			<h3>ascii</h3>
+			<textarea class="ascii" id="ascii"></textarea>
+			<br>
+			<button class="btn copy" data-clipboard-target="#ascii" type="button">Copy<span class="big-screen"> to clipboard</span></button>
+		</article>
+		<article class="base">
+			<h3>Letters to numbers</h3>
+			<textarea class="letnum" id="letnum"></textarea>
+			<br>
+			<button class="btn copy" data-clipboard-target="#letnum" type="button">Copy<span class="big-screen"> to clipboard</span></button>
+		</article>
+		<article class="base">
+			<h3>Rot 13</h3>
+			<textarea class="rot13" id="rot13"></textarea>
+			<br>
+			<button class="btn copy" data-clipboard-target="#rot13" id="rot13" type="button">Copy<span class="big-screen"> to clipboard</span></button>
+		</article>
+	</div>
+{% endblock %}
