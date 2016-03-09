@@ -1,5 +1,15 @@
 {% extends "main/base.html" %}
 {% load staticfiles %}  
+{% block extrajs %}
+	<script src="{% static 'main/js/braille.js' %}"></script>
+{% endblock %}
 {% block content %}
-	<p> Soon to come! </p>
+	<article class="base">
+		{% for image, id in data %}
+			{% with 'main/img/braille/'|add:image as fullpath %}
+			<a href="#" onclick="appendBraille('{{id}}')"><img src="{% static fullpath %}"></a>
+		{% endwith %}
+	{% endfor %}
+	<textarea class="textarea-medium" id="braille_decode"></textarea>
+	</article>
 {% endblock %}
