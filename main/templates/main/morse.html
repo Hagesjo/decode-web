@@ -1,0 +1,20 @@
+{% extends "main/base.html" %}                                                                                                     │
+{% load staticfiles %}  
+{% block extrajs %}
+	<script src="{% static 'main/js/clipboard.min.js' %}"></script>
+	<script src="{% static 'main/js/morse.js' %}"></script>
+{% endblock %}
+{% block content %}
+    <article class="base">
+        <h3>Text</h3>
+        <textarea class="text" id="text"></textarea>
+        <br>
+        <button class="btn copy" data-clipboard-target="#text" type="button">Copy<span class="big-screen"> to clipboard</span></button>
+    </article>
+    <article class="base">
+        <h3>Morse</h3>
+        <textarea class="text" id="morse"></textarea>
+        <br>
+        <button class="btn copy" data-clipboard-target="#morse" type="button">Copy<span class="big-screen"> to clipboard</span></button>
+    </article>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "main/base.html" %}                                                                                                     │
+{% load staticfiles %}  
+{% block extrajs %}
+	<script src="{% static 'main/js/clipboard.min.js' %}"></script>
+	<script src="{% static 'main/js/translate.js' %}"></script>
+{% endblock %}
+{% block content %}
+	<article class="base">
+		<h3>text</h3>
+		<textarea class="text" id="text"></textarea>
+		<br>
+		<button class="btn copy" data-clipboard-target="#text" type="button">Copy<span class="big-screen"> to clipboard</span></button>
+	</article>
+	<div class="flex-container small-force-one-column">
+		<article class="base">
+			<h3>Every nth character</h3>
+			<textarea class="nth big-height" id="nth"></textarea>
+			<br>
+			<button class="btn copy" data-clipboard-target="#nth" type="button">Copy<span class="big-screen"> to clipboard</span></button>
+		</article>
+		<article class="base">
+			<h3>Caesar Cipher</h3>
+			<textarea class="caesar big-height" id="caesar"></textarea>
+			<br>
+			<button class="btn copy" data-clipboard-target="#caesar" type="button">Copy<span class="big-screen"> to clipboard</span></button>
+		</article>
+		<article class="base">
+			<h3>Reverse text</h3>
+			<textarea class="reverse big-height" id="reverse"></textarea>
+			<br>
+			<button class="btn copy" data-clipboard-target="#reverse" id="reverse" type="button">Copy<span class="big-screen"> to clipboard</span></button>
+		</article>
+	</div>
+{% endblock %}

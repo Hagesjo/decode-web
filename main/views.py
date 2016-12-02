@@ -15,3 +15,11 @@ def caesar(request):
 def substi(request):
 	return render(request, 'main/substi.html')
 
+def trump(request):
+	return render(request, 'main/trump.html')
+
+def morse(request):
+	return render(request, 'main/morse.html')
+
+def translate(request):
+	return render(request, 'main/translate.html')

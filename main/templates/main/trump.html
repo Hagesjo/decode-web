@@ -1,0 +1,21 @@
+{% extends "main/base.html" %}                                                                                                     │
+{% load staticfiles %}  
+{% block extrajs %}
+	<script src="{% static 'main/js/clipboard.min.js' %}"></script>
+	<script src="{% static 'main/js/common.js' %}"></script>
+	<script src="{% static 'main/js/trump.js' %}"></script>
+{% endblock %}
+{% block content %}
+    <article class="base">
+        <h3>text</h3>
+        <textarea class="text" id="text"></textarea>
+        <br>
+        <button class="btn copy" data-clipboard-target="#text" type="button">Copy<span class="big-screen"> to clipboard</span></button>
+    </article>
+    <article class="base">
+        <h3>Trump</h3>
+        <textarea class="text" id="trump"></textarea>
+        <br>
+        <button class="btn copy" data-clipboard-target="#text" type="button">Copy<span class="big-screen"> to clipboard</span></button>
+    </article>
+{% endblock %}
