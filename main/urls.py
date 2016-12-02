@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^trump/$', views.trump, name='trump'),
     url(r'^morse/$', views.morse, name='morse'),
     url(r'^translate/$', views.translate, name='translate'),
+    url(r'^frequency/$', views.frequency, name='frequency'),
 ]

@@ -23,3 +23,6 @@ def morse(request):
 
 def translate(request):
     return render(request, 'main/translate.html')
+
+def frequency(request):
+    return render(request, 'main/frequency.html')
