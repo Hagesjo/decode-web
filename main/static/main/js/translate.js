@@ -1,12 +1,12 @@
 $(document).ready(function() {
-	new Clipboard('.copy');
+    new Clipboard('.copy');
 
-	//input-fields
-	$('#text').bind('input propertychange', function() {
-		nthencode(this.value);
-		caesarencode(this.value);
-		reverseencode(this.value);
-	});
+    //input-fields
+    $('#text').bind('input propertychange', function() {
+        nthencode(this.value);
+        caesarencode(this.value);
+        reverseencode(this.value);
+    });
 });
 
 
@@ -22,7 +22,7 @@ function nthencode(text) {
         outp[i] = outp[i].join("");
     }
     outp.splice(0, 1);
-	$('#nth').val(outp.join("\n"));
+    $('#nth').val(outp.join("\n"));
 }
 
 function caesarencode(text) {
@@ -43,7 +43,7 @@ function caesarencode(text) {
         }
         outp[i] = i + ": " + outp[i].join("");
     }
-	$('#caesar').val(outp.join("\n"));
+    $('#caesar').val(outp.join("\n"));
 }
 
 function reverseencode(text) {
@@ -51,5 +51,5 @@ function reverseencode(text) {
     for (var i = text.length - 1; i >= 0; i--) {
         outp += text[i];
     }
-	$('#reverse').val(outp);
+    $('#reverse').val(outp);
 }

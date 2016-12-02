@@ -1,29 +1,29 @@
 {% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="{% static 'main/css/reset.css' %}"/>
-		<link rel="stylesheet" href="{% static 'main/css/main.css' %}"/>
-		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:100, 300, 400|Roboto">
-		<title>The ultimate decoder/decrypter for all your needs</title>
-		<script src="{% static 'main/js/jquery-2.2.1.min.js' %}"></script>
-		{% block extrajs %}
-		{% endblock %}
-	</head>
-	<body>
-		<header class="header container group">
-			<h1 class="logo">Decode</h1>
-		</header>
-		<div class="wrapper">
-			<section class="content-area">
-			{% block content %}
-			{% endblock %}
-			</section>
-			<aside class="sidebar">
-				<ul>
-					<li><a href="/morse">Morse Translator</a></li>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'main/css/reset.css' %}"/>
+        <link rel="stylesheet" href="{% static 'main/css/main.css' %}"/>
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:100, 300, 400|Roboto">
+        <title>The ultimate decoder/decrypter for all your needs</title>
+        <script src="{% static 'main/js/jquery-2.2.1.min.js' %}"></script>
+        {% block extrajs %}
+        {% endblock %}
+    </head>
+    <body>
+        <header class="header container group">
+            <h1 class="logo">Decode</h1>
+        </header>
+        <div class="wrapper">
+            <section class="content-area">
+            {% block content %}
+            {% endblock %}
+            </section>
+            <aside class="sidebar">
+                <ul>
+                    <li><a href="/morse">Morse Translator</a></li>
                     <li><a href="/">Text Encryptions
                             <ul>
                                 <li>- Binary</li>
@@ -43,9 +43,9 @@
                             </ul>
                         </a>
                     </li>
-					<li><a href="/trump">Trump Cipher</a></li>
-				</ul>
-			</aside>
-		</div>
-	</body>
+                    <li><a href="/trump">Trump Cipher</a></li>
+                </ul>
+            </aside>
+        </div>
+    </body>
 </html>

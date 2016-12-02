@@ -4,22 +4,22 @@ from django.http import HttpResponse
 
 # Create your views here.
 def common(request):
-	return render(request, 'main/common.html')
+    return render(request, 'main/common.html')
 
 def braille(request):
-	return render(request, 'main/braille.html')
+    return render(request, 'main/braille.html')
 
 def caesar(request):
-	return render(request, 'main/caesar.html')
+    return render(request, 'main/caesar.html')
 
 def substi(request):
-	return render(request, 'main/substi.html')
+    return render(request, 'main/substi.html')
 
 def trump(request):
-	return render(request, 'main/trump.html')
+    return render(request, 'main/trump.html')
 
 def morse(request):
-	return render(request, 'main/morse.html')
+    return render(request, 'main/morse.html')
 
 def translate(request):
-	return render(request, 'main/translate.html')
+    return render(request, 'main/translate.html')

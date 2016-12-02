@@ -1,15 +1,15 @@
 //Listeners
 
 $(document).ready(function() {
-	new Clipboard('.copy');
+    new Clipboard('.copy');
 
-	//input-fields
-	$('#text').bind('input propertychange', function() {
-		morseencode(this.value);
-	});
-	$('#morse').bind('input propertychange', function() {
-		morsedecode(this.value);
-	});
+    //input-fields
+    $('#text').bind('input propertychange', function() {
+        morseencode(this.value);
+    });
+    $('#morse').bind('input propertychange', function() {
+        morsedecode(this.value);
+    });
 });
 
 function morseencode(text) {
@@ -51,7 +51,7 @@ function morseencode(text) {
         '8' : "----.",
         '9' : "-----"
     };
-	text = text.trim().split(/\s+/);
+    text = text.trim().split(/\s+/);
     outp = [];
     for (i = 0; i < text.length; i++) {
         var word = text[i];
@@ -61,7 +61,7 @@ function morseencode(text) {
         }
         outp.push(current.join(" "));
     }
-	$('#morse').val(outp.join(' / '));
+    $('#morse').val(outp.join(' / '));
 }
 
 function morsedecode(text) {
@@ -103,7 +103,7 @@ function morsedecode(text) {
         "----." : '8',
         "-----" : '9'
     };
-	words = text.trim().split('/');
+    words = text.trim().split('/');
     outp = [];
     for (i = 0; i < words.length; i++) {
         var word = words[i].trim().split(/\s+/);
@@ -116,6 +116,6 @@ function morsedecode(text) {
         outp.push(current.join(""));
     }
 
-	$('#text').val(outp.join(" "));
-	//$('#text').val(dec);
+    $('#text').val(outp.join(" "));
+    //$('#text').val(dec);
 }
