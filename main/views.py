@@ -18,8 +18,8 @@ def substi(request):
 def trump(request):
     return render(request, 'main/trump.html')
 
-def morse(request):
-    return render(request, 'main/morse.html')
+def morse(request, morse = ""):
+    return render(request, 'main/morse.html', {'morse' : morse})
 
 def translate(request):
     return render(request, 'main/translate.html')

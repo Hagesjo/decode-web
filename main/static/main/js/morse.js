@@ -10,6 +10,7 @@ $(document).ready(function() {
     $('#morse').bind('input propertychange', function() {
         morsedecode(this.value);
     });
+    morsedecode($('#morse').text());
 });
 
 function morseencode(text) {
