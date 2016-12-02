@@ -75,7 +75,9 @@ function asciiencode(text) {
 	for (i = 0; i < text.length; i++) {
 		outp += text.charCodeAt(i).toString() + " ";
 	}
-	$('#ascii').val(outp.slice(0,-1));
+    outp = outp.slice(0, -1);
+	$('#ascii').val(outp);
+    return outp;
 }
 
 function asciidecode(text) {
@@ -88,6 +90,7 @@ function asciidecode(text) {
 	}
 	$('#text').val(outp);
 	textencode(outp, "#ascii");
+    return outp;
 }
 
 
@@ -104,6 +107,7 @@ function binaryencode() {
 		}
 		$('#binary').val(outp);
 	}
+    return outp;
 }	
 
 function binarydecode(text) {
@@ -117,7 +121,8 @@ function binarydecode(text) {
 		outp = "";
 	}
 	$('#text').val(outp);
-	textencode(outp, "#binary");
+	//textencode(outp, "#binary");
+    return outp;
 }
 
 
@@ -134,6 +139,7 @@ function hexencode() {
 		}
 		$('#hex').val(outp);
 	}
+    return outp;
 }	
 
 function hexdecode(text) {
@@ -147,7 +153,9 @@ function hexdecode(text) {
 		outp = "";
 	}
 	$('#text').val(outp);
-	textencode(outp.trim(), "#hex");
+    outp = outp.trim();
+	textencode(outp, "#hex");
+    return outp;
 }
 
 function groupbylength(selector, size, decodefun) {
@@ -176,6 +184,7 @@ function letnumencode(text) {
 		}
 	}
 	$('#letnum').val(outp);
+    return outp;
 }
 
 function letnumdecode(text) {
@@ -185,7 +194,9 @@ function letnumdecode(text) {
 		outp += String.fromCharCode(parseInt(text[i]) % 26 + 96);
 	}
 	$('#text').val(outp);
-	textencode(outp.trim(), "#letnum");
+    outp = outp.trim();
+	textencode(outp, "#letnum");
+    return outp;
 }
 
 function shift13(text) {
@@ -205,10 +216,12 @@ function shift13(text) {
 function rot13encode(text) {
 	outp = shift13(text);
 	$('#rot13').val(outp);
+    return outp;
 }
 
 function rot13decode(text) {
 	outp = shift13(text);
 	$('#text').val(outp);
 	textencode(outp, "#rot13");
+    return outp;
 }
