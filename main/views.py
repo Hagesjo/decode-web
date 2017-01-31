@@ -1,6 +1,7 @@
 # Create your views here.
 from django.shortcuts import render
 from django.http import HttpResponse
+from api import Api
 
 # Create your views here.
 def common(request):
@@ -26,3 +27,11 @@ def translate(request):
 
 def frequency(request):
     return render(request, 'main/frequency.html')
+
+def api(request, method=None, data=None):
+    ap = Api(method, data)
+    ret = ap.parse(method, data)
+    if ret:
+        return HttpResponse(ret)
+    else:
+        return render(request, 'main/api.html')
