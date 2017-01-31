@@ -41,7 +41,7 @@ function caesarencode(text) {
                 outp[i].push(text[j]);
             }
         }
-        outp[i] = i + ": " + outp[i].join("");
+        outp[i] = " ".repeat(2 - i.toString().length) + i + ": " + outp[i].join("");
     }
     $('#caesar').val(outp.join("\n"));
 }
