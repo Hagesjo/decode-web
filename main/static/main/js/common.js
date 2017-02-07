@@ -103,7 +103,8 @@ function binaryencode() {
         var outp = "";
         text = text.split(" ");
         for (i = 0; i < text.length; i++) {
-            outp += parseInt(text[i]).toString(2) + " ";
+            var curr_bin = parseInt(text[i]).toString(2);
+            outp += "0".repeat(8 - curr_bin.length) + curr_bin + " ";
         }
         $('#binary').val(outp);
     }
