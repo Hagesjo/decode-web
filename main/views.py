@@ -35,3 +35,6 @@ def api(request, method=None, data=None):
         return HttpResponse(ret)
     else:
         return render(request, 'main/api.html')
+
+def keyboard(request):
+    return render(request, 'main/keyboard.html')

@@ -12,4 +12,5 @@ urlpatterns = [
     url(r'^morse/([ .\-/]*)$', views.morse, name='morse'),
     url(r'^translate/$', views.translate, name='translate'),
     url(r'^frequency/$', views.frequency, name='frequency'),
+    url(r'^keyboard/$', views.keyboard, name='keyboard'),
 ]
