@@ -122,7 +122,7 @@ function binarydecode(text) {
         outp = "";
     }
     $('#text').val(outp);
-    //textencode(outp, "#binary");
+    textencode(outp, "#binary");
     return outp;
 }
 
