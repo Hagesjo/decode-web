@@ -5,13 +5,13 @@
     <script src="{% static 'main/js/keyboard.js' %}"></script>
 {% endblock %}
 {% block content %}
-    <article class="base">
-        <h3>Qwerty (US)</h3>
-        <textarea class="qwerty" id="qwerty"></textarea>
-        <br>
-        <button class="btn copy" data-clipboard-target="#qwerty" type="button">Copy<span class="big-screen"> to clipboard</span></button>
-    </article>
     <div class="flex-container small-force-one-column">
+        <article class="base">
+            <h3>Qwerty (US)</h3>
+            <textarea class="qwerty big-height" id="qwerty"></textarea>
+            <br>
+            <button class="btn copy" data-clipboard-target="#qwerty" type="button">Copy<span class="big-screen"> to clipboard</span></button>
+        </article>
         <article class="base">
             <h3>Dvorak</h3>
             <textarea class="dvorak big-height" id="dvorak"></textarea>
