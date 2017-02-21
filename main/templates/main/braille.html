@@ -7,9 +7,14 @@
 	<article class="base">
 		{% for image, id in data %}
 			{% with 'main/img/braille/'|add:image as fullpath %}
-			<a href="#" onclick="appendBraille('{{id}}')"><img src="{% static fullpath %}"></a>
+			<a href="#" onclick="return insertIndices('{{id}}')"><img src="{% static fullpath %}"></a>
 		{% endwith %}
 	{% endfor %}
-	<textarea class="textarea-medium" id="braille_decode"></textarea>
+		<h3>Indices</h3>
+		<textarea class="textarea-medium" id="braille_indices"></textarea>
+		<h3>Decoded braille</h3>
+		<textarea class="textarea-medium" id="braille_decode"></textarea>
+		<h3>Encoded braille</h3>
+		<textarea class="textarea-medium" id="braille_encode"></textarea>
 	</article>
 {% endblock %}
