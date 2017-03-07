@@ -14,26 +14,20 @@ $(document).ready(function() {
 });
 
 function trumpencode(text) {
-    var d = {}
+    var d = {};
     d["1"] = "4AEFHKTXYfijkmntuxy";
     d["0"] = "-012356789BCDGIJLMNOPQRSUVWZ_abcdeghloqrsvwz";
-    text = text.trim().split(/\s+/);
-    ret = "";
+    ret = [];
     for (i = 0; i < text.length; i++) {
-        word = text[i];
-        for (j = 0; j < word.length; j++) {
-            ret += word.charCodeAt(j).toString(2) + " ";
-        }
+        ret.push(text.charCodeAt(i).toString(2))
     }
-    var outp = ""
-    for (i = 0; i < ret.length; i++) {
-        if (ret[i] != " ") {
-            outp += d[ret[i]][Math.floor((Math.random() * d[ret[i]].length))]
+    var outp = "";
+    ret.forEach(function(line) {
+        for(i = 0; i < line.length; i++) {
+            outp += d[line[i]][Math.floor((Math.random() * d[line[i]].length))];
         }
-        else {
-            outp += "\n";
-        }
-    }
+        outp += '\n';
+    });
     $('#trump').val(outp);
     return outp;
 }
