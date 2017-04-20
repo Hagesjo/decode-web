@@ -53,9 +53,9 @@ def morse(data):
 
 
 def caesar(data):
-    offset, data = data.split('/', 1)
     outp = {'valid_input' : True, 'output' : ''}
     try:
+        offset, data = data.split('/', 1)
         outp['output'] = _caesar(int(offset), data)
     except:
         outp['valid_input'] = False
@@ -80,8 +80,8 @@ def rot13(data):
 
 def base64(data):
     try:
-        ret = {'valid_input' : True, 'output' : b64decode(data)}
-    except TypeError:
+        ret = {'valid_input' : True, 'output' : b64decode(data).encode('utf-8')}
+    except:
         ret = {'valid_input' : False, 'output' : ''}
     return json.dumps(ret)
 
