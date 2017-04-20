@@ -10,6 +10,7 @@ class Api(object):
         'reverse' : reverse,
         'rot13' : rot13,
         'caesar' : caesar,
+        'ceasar' : caesar,
         }
 
     def __init__(self, method, data):
