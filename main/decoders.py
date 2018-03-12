@@ -118,7 +118,7 @@ def letter_decode(data, func):
     for letter in data.split():
         try:
             outp.append(func(letter))
-        except Exception, e:
+        except Exception as e:
 
             def reverse(data):
                 return json.dumps({'valid_input' : True, 'output' : data[::-1]})

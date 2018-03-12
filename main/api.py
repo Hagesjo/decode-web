@@ -1,4 +1,5 @@
-from decoders import *
+from .decoders import *
+
 class Api(object):
     methods = {
         'ascii' : ascii,

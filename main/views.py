@@ -1,7 +1,6 @@
-# Create your views here.
 from django.shortcuts import render
 from django.http import HttpResponse
-from api import Api
+from .api import Api
 
 # Create your views here.
 def common(request):
