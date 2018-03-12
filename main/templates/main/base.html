@@ -23,11 +23,11 @@
             </section>
             <aside class="sidebar">
                 <ul>
-                    <li><a href="/api">API</a></li>
-                    <li><a href="/keyboard">Keyboard layouts</a></li>
-                    <li><a href="/morse">Morse Translator</a></li>
-                    <li><a href="/frequency">Letter frequency</a></li>
-                    <li><a href="/">Text Encryptions
+                    <li><a href="{% url 'main:api' %}">API</a></li>
+                    <li><a href="{% url 'main:keyboard' %}">Keyboard layouts</a></li>
+                    <li><a href="{% url 'main:morse' %}">Morse Translator</a></li>
+                    <li><a href="{% url 'main:frequency' %}">Letter frequency</a></li>
+                    <li><a href="{% url 'main:common' %}">Text Encryptions
                             <ul>
                                 <li>- Binary</li>
                                 <li>- Base64</li>
@@ -38,7 +38,7 @@
                             </ul>
                         </a>
                     </li>
-                    <li><a href="/translate">Text Transformers
+                    <li><a href="{% url 'main:translate' %}">Text Transformers
                             <ul>
                                 <li>- Every nth char</li>
                                 <li>- Ceasar</li>
@@ -46,7 +46,7 @@
                             </ul>
                         </a>
                     </li>
-                    <li><a href="/trump">Trump Cipher</a></li>
+                    <li><a href="{% url 'main:trump' %}">Trump Cipher</a></li>
                 </ul>
             </aside>
         </div>
