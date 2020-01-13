@@ -76,7 +76,7 @@ WSGI_APPLICATION = 'decode.wsgi.application'
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
-LANGUAGE_CODE = 'sv-se'
+LANGUAGE_CODE = 'sv'
 
 TIME_ZONE = 'Europe/Stockholm'
 
