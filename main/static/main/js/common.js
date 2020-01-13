@@ -5,7 +5,7 @@ $(document).ready(function() {
 
     //input-fields
     $('#text').bind('input propertychange', function() {
-        textencode(this.value);
+        textencode(this.value, []);
     });
     $('#base64').bind('input propertychange', function() {
         base64decode(this.value);
@@ -52,25 +52,36 @@ allFunc['#base64'] = base64encode;
 
 //All decode and encode functions
 
-function textencode(text, skip) {
+function textencode(text, nums, skip) {
     for (var key in allFunc) {
         if (key != skip) {
-            allFunc[key](text);
+            allFunc[key](text, nums);
         }
     }
 }
 
-function base64encode(text) {
+function base64encode(text, nums) {
+    // Hack
+    if (text == "\0") {
+        $('#base64').val("");
+        return
+    }
     $('#base64').val(btoa(unescape(encodeURIComponent(text))));
 }
 
 function base64decode(text) {
     dec = decodeURIComponent(escape(atob(text)));
     $('#text').val(dec);
-    textencode(dec, "#base64");
+    textencode(dec, [], "#base64");
 }
 
-function asciiencode(text) {
+function asciiencode(text, nums) {
+    if (nums.length != 0) {
+        var outp = nums.join(" ");
+        $('#ascii').val(outp);
+        return;
+    }
+
     var outp = "";
     for (i = 0; i < text.length; i++) {
         outp += text.charCodeAt(i).toString() + " ";
@@ -82,29 +93,32 @@ function asciiencode(text) {
 
 function asciidecode(text) {
     var outp = "";
-    text = text.split(" ");
-    for (i = 0; i < text.length; i++) {
-        if (text[i] <= 255 && text[i] >= 0) {
-            outp += String.fromCharCode(text[i]);
+    var nums = text.split(/\s+/);
+    for (i = 0; i < nums.length; i++) {
+        if (nums[i] <= 255 && nums[i] >= 0) {
+            outp += String.fromCharCode(nums[i]);
         }
     }
     $('#text').val(outp);
-    textencode(outp, "#ascii");
+    textencode(outp, nums, "#ascii");
     return outp;
 }
 
 
-function binaryencode() {
+function binaryencode(text, nums) {
     var text = $.trim($('#ascii').val());
     if (text == "") {
         $('#binary').val(text);
-    }
-    else {
+    } else {
         var outp = "";
-        text = text.split(" ");
+        text = text.split(/\s+/);
         for (i = 0; i < text.length; i++) {
             var curr_bin = parseInt(text[i]).toString(2);
-            outp += "0".repeat(8 - curr_bin.length) + curr_bin + " ";
+            if (curr_bin.length > 8) {
+                outp += "0".repeat(Math.max(0, 16 - curr_bin.length)) + curr_bin + " ";
+            } else {
+                outp += "0".repeat(Math.max(0, 8 - curr_bin.length)) + curr_bin + " ";
+            }
         }
         $('#binary').val(outp);
     }
@@ -114,27 +128,33 @@ function binaryencode() {
 function binarydecode(text) {
     text = text.trim().split(/\s+/);
     var outp = "";
+    var nums = [];
     for (i = 0; i < text.length; i++) {
-        outp += String.fromCharCode(parseInt(text[i], 2));
+        if (text[i] == "") {
+            continue;
+        }
+        var num = parseInt(text[i], 2);
+        nums.push(num);
+        outp += String.fromCharCode(num);
     }
     // hack to prevent trying to decode a null char whenever field is cleared
     if (outp == "\0") {
         outp = "";
     }
     $('#text').val(outp);
-    textencode(outp, "#binary");
+    textencode(outp, nums, "#binary");
     return outp;
 }
 
 
-function hexencode() {
+function hexencode(text, nums) {
     var text = $.trim($('#ascii').val());
     if (text == "") {
         $('#hex').val(text);
     }
     else {
         var outp = "";
-        text = text.split(" ");
+        text = text.split(/\s+/);
         for (i = 0; i < text.length; i++) {
             outp += parseInt(text[i]).toString(16) + " ";
         }
@@ -145,9 +165,12 @@ function hexencode() {
 
 function hexdecode(text) {
     var outp = "";
+    var nums = [];
     text = text.trim().split(/\s+/);
     for (i = 0; i < text.length; i++) {
-        outp += String.fromCharCode(parseInt(text[i], 16));
+        var num = parseInt(text[i], 16)
+        nums.push(num);
+        outp += String.fromCharCode(num);
     }
     // hack to prevent trying to decode a null char whenever field is cleared
     if (outp == "\0") {
@@ -155,7 +178,7 @@ function hexdecode(text) {
     }
     $('#text').val(outp);
     outp = outp.trim();
-    textencode(outp, "#hex");
+    textencode(outp, nums, "#hex");
     return outp;
 }
 
@@ -173,7 +196,7 @@ function groupbylength(selector, size, decodefun) {
 }
 
 
-function letnumencode(text) {
+function letnumencode(text, nums) {
     var outp = "";
     text = text.toLowerCase()
     for (i = 0; i < text.length; i++) {
@@ -192,11 +215,15 @@ function letnumdecode(text) {
     var outp = "";
     text = text.trim().split(/\s+/);
     for (i = 0; i < text.length; i++) {
-        outp += String.fromCharCode(parseInt(text[i]) % 26 + 96);
+        var num = parseInt(text[i]);
+        if (num < 1) {
+            num = 26 - num;
+        }
+        outp += String.fromCharCode((num - 1) % 26 + 97);
     }
     $('#text').val(outp);
     outp = outp.trim();
-    textencode(outp, "#letnum");
+    textencode(outp, [], "#letnum");
     return outp;
 }
 
@@ -214,7 +241,7 @@ function shift13(text) {
 }
 
 
-function rot13encode(text) {
+function rot13encode(text, nums) {
     outp = shift13(text);
     $('#rot13').val(outp);
     return outp;
@@ -223,6 +250,6 @@ function rot13encode(text) {
 function rot13decode(text) {
     outp = shift13(text);
     $('#text').val(outp);
-    textencode(outp, "#rot13");
+    textencode(outp, [], "#rot13");
     return outp;
 }
