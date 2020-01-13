@@ -91,9 +91,6 @@ body {
     justify-content: center;
 }
 
-/*.flex-dual {*/
-    /*¨c*/
-
 .big-height {
     height: 30em;
 }
@@ -126,13 +123,25 @@ textarea {
 	height: 150px;
 }
 
+input[type=text] {
+    width: 500px;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
 
 .btn {
 	border: 1px solid rgb(140,140,140);
-	border-radius: 1px;
 	background: rgb(224, 223, 215);
 	padding: 10px;
-	border-radius: 10px;
+	border-radius: 4px;
 }
 
 .spacebtn {

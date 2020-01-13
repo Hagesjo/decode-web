@@ -7,6 +7,22 @@
 {% endblock %}
 {% block content %}
     <article class="base">
+        <h3>Symbols</h3>
+        <div style="align-items: center;" class="flex-column">
+            <div style="flex-column">
+                <input id="symbols" name="symbols" type="text", value="abcdefghijklmnopqrstuvwxyz">
+                <div class="flex-row flex-dual">
+                    <input id="case-sens" name="case-sens" type="checkbox">
+                    <label>Case sensitive?</label>
+                </div>
+                <div style="justify-content: space-between;" class="flex-row">
+                    <button id="lowercase" class="btn" onclick="$('#symbols').val('abcdefghijklmnopqrstuvwxyz');">alpha</button>
+                    <button id="uppercase" class="btn" onclick="$('#symbols').val('ABCDEFGHIJKLMNOPQRSTUVWXYZ');">ALPHA</button>
+                    <button id="alphanumeric" class="btn" onclick="$('#symbols').val('abcdefghijklmnopqrstuvwxyz0123456789');">alphanumeric</button>
+                    <button id="numeric" class="btn" onclick="$('#symbols').val('0123456789');">numeric</button>
+                </div>
+            </div>
+        </div>
         <h3>text</h3>
         <textarea class="text" id="text"></textarea>
         <br>
