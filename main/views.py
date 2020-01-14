@@ -2,9 +2,11 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .api import Api
 
-# Create your views here.
 def common(request):
     return render(request, 'main/common.html')
+
+def bases(request):
+    return render(request, 'main/bases.html')
 
 def braille(request):
     return render(request, 'main/braille.html')

@@ -1,0 +1,22 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% block extrajs %}
+    <script src="{% static 'main/js/clipboard.min.js' %}"></script>
+    <script src="{% static 'main/js/bases.js' %}"></script>
+{% endblock %}
+{% block content %}
+    <article class="base">
+        <div class="flex-row flex-dual">
+            <h3>Base</h3><input type="number" style="width: 30px;" name="input-base", id="input-base", value="10">
+        </div>
+        <textarea class="text" id="text"></textarea>
+        <br>
+        <button class="btn copy" data-clipboard-target="#text" type="button">Copy<span class="big-screen"> to clipboard</span></button>
+    </article>
+    <article class="base">
+        <h3>Converted bases</h3>
+        <textarea class="converted big-height" id="converted"></textarea>
+        <br>
+        <button class="btn copy" data-clipboard-target="#converted" type="button">Copy<span class="big-screen"> to clipboard</span></button>
+    </article>
+{% endblock %}
