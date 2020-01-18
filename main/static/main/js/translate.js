@@ -6,6 +6,7 @@ $(document).ready(function() {
         nthencode(this.value);
         caesarencode(this.value);
         reverseencode(this.value);
+        transpose(this.value);
     });
 });
 
@@ -52,4 +53,21 @@ function reverseencode(text) {
         outp += text[i];
     }
     $('#reverse').val(outp);
+}
+
+function transpose(text) {
+    var lines = text.split("\n");
+    var outp = [];
+    var width = lines[0].length
+
+    for (i = 0; i < width; i++) {
+        outp.push("");
+    }
+
+    for (i = 0; i < lines.length; i++) {
+        for (j = 0; j < width; j++) {
+            outp[j] += lines[i][j];
+        }
+    }
+    $('#transpose').val(outp.join("\n"));
 }
