@@ -1,0 +1,23 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% block extrajs %}
+    <script type="text/javascript">
+        var words = new Set({{ words|safe }});
+    </script>
+    <script src="{% static 'main/js/wordmatrix.js' %}"></script>
+{% endblock %}
+{% block content %}
+    <article class="base">
+        <h3>Word matrix</h3>
+        <div class="flex-row flex-dual">
+            Minimum word length: <input type="number" style="width: 50px;" id="min-word-length", value="3">
+        </div>
+        <textarea class="text" id="text"></textarea>
+        <br>
+    </article>
+    <article class="base">
+        <div id="test" class="flex-column">
+
+        </div>
+    </article>
+{% endblock %}
