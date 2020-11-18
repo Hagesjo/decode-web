@@ -39,3 +39,9 @@ def api(request, method=None, data=None):
 
 def keyboard(request):
     return render(request, 'main/keyboard.html')
+
+with open(settings.BASE_DIR + "/" + 'eng.txt') as f:
+    words = f.read().split()
+
+def wordmatrix(request):
+    return render(request, 'main/wordmatrix.html', {'words': words})
