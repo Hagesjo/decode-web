@@ -78,6 +78,7 @@ function findWords(text) {
     rows = parseWordMatrix(text);
     found = new Set();
     rows.forEach( row => {
+        row = row.toLowerCase();
         for (i = 0; i <= row.length; i++) {
             for (j = i + 1; j <= row.length; j++) {
                 if (j - i < minLength) {
