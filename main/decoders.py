@@ -56,26 +56,32 @@ def caesar(data):
     outp = {'valid_input' : True, 'output' : ''}
     try:
         offset, data = data.split('/', 1)
-        outp['output'] = _caesar(int(offset), data)
+        outp['output'] = _caesar(data, int(offset))
     except:
-        outp['valid_input'] = False
+        outp['output'] = _caesar(data)
     return json.dumps(outp)
 
-def _caesar(offset, letters):
-    ret = ""
-    for letter in letters:
-        code = ord(letter)
-        
-        if code >= 65 and code <= 90:
-            ret += chr(((code - 65 + offset) % 26) + 65)
-        elif code >= 97 and code <= 122:
-            ret += chr(((code - 97 + offset) % 26) + 97)
-        else:
-            ret += letter
-    return ret
+def _caesar(letters, offset=None):
+    ret = []
+    offsets = [offset]
+    if offset is None:
+        offsets = range(26)
+
+    for o in offsets:
+        row = "{0:02d}: ".format(o) if offset is None else ""
+        for letter in letters:
+            code = ord(letter)
+            if code >= 65 and code <= 90:
+                row += chr(((code - 65 + o) % 26) + 65)
+            elif code >= 97 and code <= 122:
+                row += chr(((code - 97 + o) % 26) + 97)
+            else:
+                row += letter
+        ret.append(row)
+    return '\n'.join(ret)
 
 def rot13(data):
-    outp = {'valid_input' : True, 'output' : _caesar(13, data)} # Can't fail
+    outp = {'valid_input' : True, 'output' : _caesar(data, 13)} # Can't fail
     return json.dumps(outp)
 
 def base64(data):
