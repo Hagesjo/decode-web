@@ -12,8 +12,8 @@ var d_c_dict = {};
 for (i = 0; i < __qwerty_keys.length; i++) {
     q_d_dict[__qwerty_keys[i]] = __dvorak_keys[i];
     q_c_dict[__qwerty_keys[i]] = __colemk_keys[i];
-    c_q_dict[__dvorak_keys[i]] = __qwerty_keys[i];
-    d_q_dict[__colemk_keys[i]] = __qwerty_keys[i];
+    d_q_dict[__dvorak_keys[i]] = __qwerty_keys[i];
+    c_q_dict[__colemk_keys[i]] = __qwerty_keys[i];
     d_c_dict[__dvorak_keys[i]] = __colemk_keys[i];
     c_d_dict[__colemk_keys[i]] = __dvorak_keys[i];
 }
@@ -39,7 +39,6 @@ $(document).ready(function() {
 });
 
 function translate(text, t_dict, elem) {
-    console.log(elem)
     var outp = "";
     for (i = 0; i < text.length; i++) {
         if (text[i] in t_dict) {
