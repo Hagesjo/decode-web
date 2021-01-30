@@ -66,11 +66,11 @@ function base64encode(text, nums) {
         $('#base64').val("");
         return
     }
-    $('#base64').val(btoa(unescape(encodeURIComponent(text))));
+    $('#base64').val(Base64.btoa(text));
 }
 
 function base64decode(text) {
-    dec = decodeURIComponent(escape(atob(text)));
+    dec = Base64.atob(text);
     $('#text').val(dec);
     textencode(dec, [], "#base64");
 }
