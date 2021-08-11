@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100, 300, 400|Roboto">
         <title>The ultimate decoder/decrypter for all your needs</title>
         <script src="{% static 'main/js/jquery-2.2.1.min.js' %}"></script>
+        <script src="{% static 'main/js/search.js' %}"></script>
         {% block extrajs %}
         {% endblock %}
     </head>
@@ -22,8 +23,9 @@
             {% endblock %}
             </section>
             <aside class="sidebar">
-                <ul>
-                    <li><a href="{% url 'main:bases' %}">Convert bases</a></li>
+                <input id="search" type="text" placeholder="Search" oninput="search(this.value)">
+                <ul id="methods">
+                    <li><a href="{% url 'main:bases' %}">Bases</a></li>
                     <li><a href="{% url 'main:keyboard' %}">Keyboard layouts</a></li>
                     <li><a href="{% url 'main:morse' %}">Morse Translator</a></li>
                     <li><a href="{% url 'main:frequency' %}">Letter frequency</a></li>
