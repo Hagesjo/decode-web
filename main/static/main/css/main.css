@@ -3,6 +3,9 @@ html {
 }
 
 body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
 	font: 300 16px/23px "Roboto", "Lato", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	color: rgba(0,0,0, 0.8);
 	background-size: cover;
@@ -41,6 +44,7 @@ body {
 }
 
 .wrapper {
+    flex-grow: 1;
 	margin-top: 5px;
 	display: -webkit-flex;
 	display: flex;
