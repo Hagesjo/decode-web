@@ -2,6 +2,7 @@ function search(kw) {
     // This highly depends on the html structure of base.html.
     // If you decide to restructure base.html, you need to adjust this queryselector
 
+    kw = kw.toLowerCase();
     
     // "fuzzy" "search". Build an amazingly inefficient regex.
     // e.g for "hej", it will build .*h.*e.*j.*
