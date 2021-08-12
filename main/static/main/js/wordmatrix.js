@@ -1,11 +1,11 @@
 $(document).ready(function() {
     //input-fields
     $('#text').bind('input propertychange', function() {
-        findWords(this.value);
+        findWordsInMatrix(this.value);
     });
     $('#min-word-length').bind('input propertychange', function() {
         //parseWordMatrix(this.value);
-        findWords(document.querySelector('#text').value);
+        findWordsInMatrix(document.querySelector('#text').value);
     });
 });
 
@@ -71,9 +71,7 @@ function parseWordMatrix(text) {
     return ret;
 }
 
-
-
-function findWords(text) {
+function findWordsInMatrix(text) {
     var minLength = parseInt(document.querySelector('#min-word-length').value);
     rows = parseWordMatrix(text);
     found = new Set();
@@ -91,22 +89,5 @@ function findWords(text) {
             }
         }
     });
-    document.querySelector("#test").innerHTML = [...found].join('<br>');
+    document.querySelector("#found-words").innerHTML = [...found].join('<br>');
 }
-
-//class Node {
-    //constructor(neighbours) {
-        //this.neighbours = neighbours
-    //}
-//}
-
-//function parseWordMatrix (text) {
-    //var root = Node([]);
-    //var rows = text.trim().split('\n')
-    //for (col = 0; col < rows[0].length; col++) {
-        //for (row = 0; row < 
-//}
-
-//function findWords(text) {
-    //rows = parseWordMatrix(text);
-//}

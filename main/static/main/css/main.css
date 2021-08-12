@@ -224,3 +224,8 @@ a:hover {
     height: 30px;
     width: 70%;
 }
+
+#found-words {
+    text-align: start;
+    font-family: monospace;
+}

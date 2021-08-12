@@ -1,0 +1,52 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% block extrajs %}
+    <script type="text/javascript">
+        var words = new Set({{ words|safe }});
+    </script>
+    <script src="{% static 'main/js/wordlist.js' %}"></script>
+{% endblock %}
+{% block content %}
+    <article class="base">
+        <h3>Word list</h3>
+        <div style="text-align: start">
+            <details>
+                <summary>Regex crash course</summary>
+
+            <pre>
+. -&gt; any character. IMO the most used one, eg b..y.le matches bicycle
+* -&gt; a character 0 or more times (usually combined with ., eg .*)
+? -&gt; a character can occur, but doesn't have to.
+[XYZ] -&gt; match any of the characters XYZ in this position
+^ -&gt; beginning of line
+$ -&gt; end of line
+
+So to combine all of above:
+heyy? [dj]ude.* will e.g match: 
+"heyy dude aaaa"
+"heyy dude bbbbbb"
+"hey jude ccccc"
+"hey dudedddddd"
+
+And for the usefulness of [XYZ] and ^$:
+E.g  you have found 6 words with a given order: winter, summer, autumn, spring, cold, hot
+then, you can use
+^[winter][summer][autumn][spring][cold][hot]$
+which will match any word containing one character from each word in the given order.
+For this example, "teapot" matches.
+            </pre>
+            </details>
+        </div>
+        <div class="flex-row flex-dual">
+            Minimum word length: <input type="number" style="width: 50px;" id="min-word-length", value="3">
+        </div>
+        <textarea class="text" id="text" placeholder="Regex, e.g intermi.*n. Uses standard javascript regex"></textarea>
+        <br>
+    </article>
+    <article class="base">
+        <pre>
+            <div id="found-words" class="flex-column">
+            </div>
+        </pre>
+    </article>
+{% endblock %}

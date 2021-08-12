@@ -46,3 +46,6 @@ with open(settings.BASE_DIR + "/" + 'eng.txt') as f:
 
 def wordmatrix(request):
     return render(request, 'main/wordmatrix.html', {'words': words})
+
+def wordlist(request):
+    return render(request, 'main/wordlist.html', {'words': words})
