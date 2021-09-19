@@ -7,6 +7,7 @@ $(document).ready(function() {
         caesarencode(this.value);
         reverseencode(this.value);
         transpose(this.value);
+        atbash(this.value);
     });
 });
 
@@ -70,4 +71,15 @@ function transpose(text) {
         }
     }
     $('#transpose').val(outp.join("\n"));
+}
+
+function atbash(text) {
+    var alphabet = "abcdefghijklmABCDEFGHIJKLMNOPQRSTUVWXYZnopqrstuvwxyz";
+    var rev = Array.from(alphabet).reverse();
+    var outp = [];
+    for (i = 0; i < text.length; i++) {
+        var c = text[i];
+        outp.push(rev[alphabet.indexOf(c)] ?? c)
+    }
+    $('#atbash').val(outp.join(""));
 }
