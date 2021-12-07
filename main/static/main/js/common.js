@@ -137,7 +137,7 @@ function binarydecode(text) {
     bin0 = document.querySelector("#binary-0").value
     bin1 = document.querySelector("#binary-1").value
     if (bin0 != "" && bin1 != "") {
-        text = text.replaceAll(bin0, "0").replaceAll(bin1, "1");
+        text = text.replaceAll(bin0, "tmp").replaceAll(bin1, "1").replaceAll("tmp", "0");
     }
     text = text.trim().split(/\s+/);
 

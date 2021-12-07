@@ -8,7 +8,7 @@ $(document).ready(function() {
         morseEncode(this.value);
     });
     $('#morse').bind('input propertychange', function() {
-        morseChanged(this.value);
+        morseChanged(this.value, true);
     });
     morseChanged($('#morse').text());
 });
@@ -63,37 +63,46 @@ function morseEncode(text) {
         outp.push(current.join(" "));
     }
     $('#morse').val(outp.join(' / '));
+    morseChanged(outp.join(' / '), false);
 }
 
-function morseChanged(text) {
-    [decoded, charSet] = morseDecode(text)
+function morseChanged(text, setDecodedText) {
+    [decoded, charSet, onlyMorse] = morseDecode(text)
 
-    charSet.delete('-');
-    charSet.delete('.');
 
-    $('#text').val(decoded);
+    if (setDecodedText) {
+        $('#text').val(decoded);
+    }
 
     chars = Array.from(charSet);
     if (chars.length == 1) {
-        chars.push("");
+        chars.push(".");
     }
+
     if (chars.length != 2) {
         document.querySelector("#morse-a").classList.add("hide")
         document.querySelector("#morse-b").classList.add("hide")
-        return outp;
+        return;
+    }
+
+    if (onlyMorse) {
+        document.querySelector("#morse-b").classList.add("hide")
+        chars = ['.', '-']
     }
 
     document.querySelector("#a").innerHTML = chars[0] + " = -<br>" + chars[1] + " = .";
-    document.querySelector("#b").innerHTML = chars[0] + " = .<br>" + chars[1] + " = -";
-
     document.querySelector("#morse-a").classList.remove("hide");
+    aText = text.replaceAll(chars[0], "tmp").replaceAll(chars[1], ".").replaceAll("tmp", "-");
+    document.querySelector("#morse-a-text").innerText = morseDecode(aText)[0];
+
+    if (onlyMorse) {
+        return
+    }
+
+    document.querySelector("#b").innerHTML = chars[0] + " = .<br>" + chars[1] + " = -";
     document.querySelector("#morse-b").classList.remove("hide");
-
-    aText = text.replaceAll(chars[0], "-").replaceAll(chars[1], ".")
-    document.querySelector("#morse-a-text").innerText = morseDecode(aText)[0]
-
-    bText = text.replaceAll(chars[0], ".").replaceAll(chars[1], "-")
-    document.querySelector("#morse-b-text").innerText = morseDecode(bText)[0]
+    bText = text.replaceAll(chars[0], "tmp").replaceAll(chars[1], "-").replaceAll("tmp", ".");
+    document.querySelector("#morse-b-text").innerText = morseDecode(bText)[0];
 
 }
 
@@ -146,7 +155,6 @@ function morseDecode(text) {
         for (j = 0; j < word.length; j++) {
             if (translate[word[j]]) {
                 current.push(translate[word[j]].toUpperCase());
-                continue
             }
             for (k = 0; k < word[j].length; k++) {
                 charSet.add(word[j][k]);
@@ -154,6 +162,9 @@ function morseDecode(text) {
         }
         outp.push(current.join(""));
     }
-    return [outp, charSet];
+    var onlyMorse = (charSet.size == 1 && (charSet.has(".") || charSet.has("-")) ||
+                    (charSet.has("-") && charSet.has(".") && charSet.size == 2))
+
+    return [outp, charSet, onlyMorse];
 }
 
