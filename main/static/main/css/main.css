@@ -6,7 +6,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100%;
-    font: 300 16px/23px "Roboto", "Lato", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font: 300 16px/23px "Roboto Mono", "Lato", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: rgba(0,0,0, 0.8);
     background-size: cover;
     /*background:-webkit-radial-gradient(left, circle, #ffce79 0%, #ae7afd 100%);*/
@@ -73,6 +73,10 @@ body {
 
 .header, .sidebar {
     background: rgba(0,0,0,0.45);
+}
+
+.hide {
+    display: none;
 }
 
 .base {
@@ -166,7 +170,7 @@ a:hover {
 
 .logo {
     color: rgba(255,255,255, 0.8);
-    font-family: "Roboto";
+    font-family: "Roboto Mono";
     vertical-align: center;
     text-align: center;
     padding-bottom: 30px;
@@ -193,7 +197,7 @@ a:hover {
 
 .sidebar li {
     /*text-align: center;*/
-    font-family: "Lato";
+    font-family: "Roboto Mono";
     font-weight: 400;
 }
 

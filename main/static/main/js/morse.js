@@ -5,15 +5,15 @@ $(document).ready(function() {
 
     //input-fields
     $('#text').bind('input propertychange', function() {
-        morseencode(this.value);
+        morseEncode(this.value);
     });
     $('#morse').bind('input propertychange', function() {
-        morsedecode(this.value);
+        morseChanged(this.value);
     });
-    morsedecode($('#morse').text());
+    morseChanged($('#morse').text());
 });
 
-function morseencode(text) {
+function morseEncode(text) {
     translate = {
         'A' : ".-",
         'B' : "-...",
@@ -65,7 +65,40 @@ function morseencode(text) {
     $('#morse').val(outp.join(' / '));
 }
 
-function morsedecode(text) {
+function morseChanged(text) {
+    [decoded, charSet] = morseDecode(text)
+
+    charSet.delete('-');
+    charSet.delete('.');
+
+    $('#text').val(decoded);
+
+    chars = Array.from(charSet);
+    if (chars.length == 1) {
+        chars.push("");
+    }
+    if (chars.length != 2) {
+        document.querySelector("#morse-a").classList.add("hide")
+        document.querySelector("#morse-b").classList.add("hide")
+        return outp;
+    }
+
+    document.querySelector("#a").innerHTML = chars[0] + " = -<br>" + chars[1] + " = .";
+    document.querySelector("#b").innerHTML = chars[0] + " = .<br>" + chars[1] + " = -";
+
+    document.querySelector("#morse-a").classList.remove("hide");
+    document.querySelector("#morse-b").classList.remove("hide");
+
+    aText = text.replaceAll(chars[0], "-").replaceAll(chars[1], ".")
+    document.querySelector("#morse-a-text").innerText = morseDecode(aText)[0]
+
+    bText = text.replaceAll(chars[0], ".").replaceAll(chars[1], "-")
+    document.querySelector("#morse-b-text").innerText = morseDecode(bText)[0]
+
+}
+
+
+function morseDecode(text) {
     translate = {
         ".-" : 'A',
         "-..." : 'B',
@@ -106,17 +139,21 @@ function morsedecode(text) {
     };
     words = text.trim().split('/');
     outp = [];
+    const charSet = new Set();
     for (i = 0; i < words.length; i++) {
         var word = words[i].trim().split(/\s+/);
         var current = []
         for (j = 0; j < word.length; j++) {
             if (translate[word[j]]) {
                 current.push(translate[word[j]].toUpperCase());
+                continue
+            }
+            for (k = 0; k < word[j].length; k++) {
+                charSet.add(word[j][k]);
             }
         }
         outp.push(current.join(""));
     }
-
-    $('#text').val(outp.join(" "));
-    //$('#text').val(dec);
+    return [outp, charSet];
 }
+
