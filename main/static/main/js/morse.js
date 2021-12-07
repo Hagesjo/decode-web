@@ -92,7 +92,7 @@ function morseChanged(text, setDecodedText) {
 
     document.querySelector("#a").innerHTML = chars[0] + " = -<br>" + chars[1] + " = .";
     document.querySelector("#morse-a").classList.remove("hide");
-    aText = text.replaceAll(chars[0], "tmp").replaceAll(chars[1], ".").replaceAll("tmp", "-");
+    aText = text.toUpperCase().replaceAll(chars[0], "tmp").replaceAll(chars[1], ".").replaceAll("tmp", "-");
     document.querySelector("#morse-a-text").innerText = morseDecode(aText)[0];
 
     if (onlyMorse) {
@@ -101,7 +101,7 @@ function morseChanged(text, setDecodedText) {
 
     document.querySelector("#b").innerHTML = chars[0] + " = .<br>" + chars[1] + " = -";
     document.querySelector("#morse-b").classList.remove("hide");
-    bText = text.replaceAll(chars[0], "tmp").replaceAll(chars[1], "-").replaceAll("tmp", ".");
+    bText = text.toUpperCase().replaceAll(chars[0], "tmp").replaceAll(chars[1], "-").replaceAll("tmp", ".");
     document.querySelector("#morse-b-text").innerText = morseDecode(bText)[0];
 
 }
@@ -157,7 +157,7 @@ function morseDecode(text) {
                 current.push(translate[word[j]].toUpperCase());
             }
             for (k = 0; k < word[j].length; k++) {
-                charSet.add(word[j][k]);
+                charSet.add(word[j][k].toUpperCase());
             }
         }
         outp.push(current.join(""));
