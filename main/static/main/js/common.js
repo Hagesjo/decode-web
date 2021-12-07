@@ -126,7 +126,13 @@ function binaryencode(text, nums) {
 }    
 
 function binarydecode(text) {
+    bin0 = document.querySelector("#binary-0").value
+    bin1 = document.querySelector("#binary-1").value
+    if (bin0 != "" && bin1 != "") {
+        text = text.replaceAll(bin0, "0").replaceAll(bin1, "1");
+    }
     text = text.trim().split(/\s+/);
+
     var outp = "";
     var nums = [];
     for (i = 0; i < text.length; i++) {
