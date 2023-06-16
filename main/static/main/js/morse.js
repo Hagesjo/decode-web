@@ -15,6 +15,8 @@ $(document).ready(function() {
 
 function morseEncode(text) {
     translate = {
+        '.' : ".-.-.-",
+        ',' : "--..--",
         'A' : ".-",
         'B' : "-...",
         'C' : "-.-.",
@@ -109,6 +111,8 @@ function morseChanged(text, setDecodedText) {
 
 function morseDecode(text) {
     translate = {
+        ".-.-.-" : '.',
+        "--..--" : ',',
         ".-" : 'A',
         "-..." : 'B',
         "-.-." : 'C',
