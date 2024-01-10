@@ -49,3 +49,6 @@ def wordmatrix(request):
 
 def wordlist(request):
     return render(request, 'main/wordlist.html', {'words': words})
+
+def plusone(request):
+    return render(request, 'main/plusone.html', {'words': words})

@@ -19,6 +19,7 @@ urlpatterns = [
     path('trump', views.trump, name='trump'),
     path('wordmatrix', views.wordmatrix, name='wordmatrix'),
     path('wordlist', views.wordlist, name='wordlist'),
+    path('plusone', views.plusone, name='plusone'),
 
     re_path('morse/([ .\-/]*)?$', views.morse, name='morse'),
 ]

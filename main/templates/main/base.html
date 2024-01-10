@@ -25,6 +25,7 @@
             <aside class="sidebar">
                 <input id="search" type="text" placeholder="Search" oninput="search(this.value)">
                 <ul id="methods">
+                    <li><a href="{% url 'main:plusone' %}">Add a letter</a></li>
                     <li><a href="{% url 'main:bases' %}">Bases</a></li>
                     <li><a href="{% url 'main:keyboard' %}">Keyboard layouts</a></li>
                     <li><a href="{% url 'main:morse' %}">Morse Translator</a></li>

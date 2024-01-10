@@ -1,0 +1,29 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% block extrajs %}
+    <script src="{% static 'main/js/plusword.js' %}"></script>
+    <script type="text/javascript">
+        var hashes = new Set()
+        var fromWord = {}
+        var words = {{ words|safe }}.forEach((word) => {
+            let hash = makeHash(word);
+            hashes.add(hash);
+            if (fromWord[hash]) {
+                fromWord[hash].push(word);
+            } else {
+                fromWord[hash] = [word];
+            }
+        })
+    </script>
+{% endblock %}
+{% block content %}
+    <article class="base">
+        <h3>Add one letter to build another word</h3>
+        <textarea class="text" id="text"></textarea>
+    </article>
+    <article class="flex-row">
+        <code id="stats" class="hide">
+            <pre id="found-words"></pre>
+        </code>
+    </article>
+{% endblock %}
