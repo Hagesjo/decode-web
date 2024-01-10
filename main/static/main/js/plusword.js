@@ -1,7 +1,7 @@
 $(document).ready(function() {
     //input-fields
     $('#text').bind('input propertychange', function() {
-        findPlusWord(this.value);
+        findPlusWord(this.value.toLowerCase());
     });
 });
 
