@@ -4,6 +4,9 @@ $(document).ready(function() {
     new Clipboard('.copy');
 
     //input-fields
+    $('#symbols').bind('input propertychange', function() {
+        parsefrequency($("#text").val());
+    });
     $('#text').bind('input propertychange', function() {
         parsefrequency(this.value);
     });
@@ -23,6 +26,12 @@ $(document).ready(function() {
         parsefrequency($("#text").val());
     });
 });
+
+function sumObjectValues(obj) {
+  return Object.values(obj).reduce(function (accumulator, currentValue) {
+    return accumulator + currentValue;
+  }, 0);
+}
 
 function parsefrequency(text) {
     var symbols = $('#symbols').val();
@@ -59,6 +68,19 @@ function createGraph(symbols, symbolsCount) {
         colors.push(getColorByValue(symbolsCount[i], highestCount));
         borders.push('rgba(0,0,0,0.6)');
     }
+    if (symbols.length > 0) {
+        let stats = $('#stats');
+        stats.removeClass('hide');
+        let d = {}
+        for (var i = 0; i < symbols.length; i++) {
+            d[symbols[i]] = symbolsCount[i];
+        }
+
+        $('#totalcount').text("Total count: " + sumObjectValues(symbolsCount));
+        $('#lettercounts').text(JSON.stringify(d, null, 4));
+    } else {
+        stats.addClass('hide');
+    }
 
     var ctx = $('#frequencyChart');
     frequencyChart = new Chart(ctx, {
@@ -78,7 +100,8 @@ function createGraph(symbols, symbolsCount) {
             scales: {
                 yAxes: [{
                     ticks: {
-                        beginAtZero:true
+                        beginAtZero:true,
+                        stepSize: 1
                     }
                 }]
             }
