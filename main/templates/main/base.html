@@ -7,6 +7,8 @@
         <link rel="stylesheet" href="{% static 'main/css/reset.css' %}"/>
         <link rel="stylesheet" href="{% static 'main/css/main.css' %}"/>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100, 300, 400|Roboto+Mono">
+        {% block extracss %}
+        {% endblock %}
         <title>The ultimate decoder/decrypter for all your needs</title>
         <script src="{% static 'main/js/jquery-2.2.1.min.js' %}"></script>
         <script src="{% static 'main/js/search.js' %}"></script>

@@ -75,10 +75,6 @@ body {
     background: rgba(0,0,0,0.45);
 }
 
-.hide {
-    display: none;
-}
-
 .base {
     padding: 5px;
     text-align: center;
@@ -221,6 +217,11 @@ a:hover {
     text-align: center;
     letter-spacing: .1em;
 }
+
+.hide {
+    display: none;
+}
+
 
 code {
     min-width: 100%;

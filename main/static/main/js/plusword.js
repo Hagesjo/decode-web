@@ -23,11 +23,9 @@ function findPlusWord(phrase) {
     symbols = Array.from("abcdefghijklmnopqrstuvwxyz");
     ws = phrase.split(/(\s+)/)
     ws.forEach((word) => { 
-        console.log("huh", word);
         if (word.length < 3) {
             return
         }
-        console.log(makeHash(word))
         word = word.replace(/\W/g, '')
         for (var i = 0; i < symbols.length; i++) {
             let hash = makeHash(word + symbols[i]);
@@ -41,7 +39,6 @@ function findPlusWord(phrase) {
         $('#found-words').text(JSON.stringify(ret, null, 4));
         $('#stats').removeClass('hide');
     } else {
-        console.log("no res");
         $('#stats').addClass('hide');
     }
 }

@@ -20,11 +20,9 @@ $(document).ready(function() {
         binarydecode(this.value);
     });
     $('#binary-0').bind('input propertychange', function() {
-        console.log("tjenna");
         binarydecode($('#binary').val());
     });
     $('#binary-1').bind('input propertychange', function() {
-        console.log("tjenna");
         binarydecode($('#binary').val());
     });
     $('#hex').bind('input propertychange', function() {

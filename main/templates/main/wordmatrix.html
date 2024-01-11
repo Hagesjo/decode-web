@@ -1,5 +1,8 @@
 {% extends "main/base.html" %}
 {% load static %}
+{% block extracss %}
+    <link rel="stylesheet" href="{% static 'main/css/wordmatrix.css' %}"/>
+{% endblock %}
 {% block extrajs %}
     <script type="text/javascript">
         var words = new Set({{ words|safe }});
@@ -16,8 +19,15 @@
         <br>
     </article>
     <article class="base">
-        <div id="found-words" class="flex-column">
-
+        <div id="gridinfo" class="hide flex-row">
+            <div id="found-words" class="flex-column"></div>
+            <div class="flex-column">
+                <h3>Parsed grid</h3>
+                <div class="flex-row flex-dual">
+                    Highlight letters: <input type="text" style="width: 50px;" id="highlighter", value="">
+                </div>
+                <div id="grid" class="grid"></div>
+            </div>
         </div>
     </article>
 {% endblock %}

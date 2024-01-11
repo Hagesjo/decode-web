@@ -7,16 +7,43 @@ $(document).ready(function() {
         //parseWordMatrix(this.value);
         findWordsInMatrix(document.querySelector('#text').value);
     });
+    $('#highlighter').bind('input propertychange', function() {
+        highlightLetters(document.querySelector('#highlighter').value);
+    });
+
 });
+
+function highlightLetters(letters) {
+    var elems = document.querySelectorAll('td')
+    elems.forEach((elem) => {
+        elem.style.background = 'none';
+        for (var i = 0; i < letters.length; i++) {
+            if (elem.textContent.toLowerCase() === letters[i].toLowerCase()) {
+                elem.style.background = '#21f821';
+            }
+
+        }
+    });
+}
 
 
 // Only works for square matrixes with this approach
 function parseWordMatrix(text) {
+    if (text.length > 0) {
+        document.querySelector("#gridinfo").classList.remove('hide')
+    } else {
+        document.querySelector("#gridinfo").classList.add('hide')
+    }
     // parse rows
     var rows = [];
     var ret = new Set();
+    // Cleanup, remove all whitespace
     splitted = text.trim().split('\n')
-    splitted.forEach( row => {
+    splitted.forEach( (row, i) => {
+        splitted[i] = row.replace(/\s/g, '');
+    });
+    loadGrid(splitted);
+    splitted.forEach((row) => {
         rows.push(row.split(""));
         ret.add(row);
         ret.add(row.split("").reverse().join(""));
@@ -89,5 +116,37 @@ function findWordsInMatrix(text) {
             }
         }
     });
-    document.querySelector("#found-words").innerHTML = [...found].join('<br>');
+    let li = Array.from(found)
+    li.sort((a, b) => b.length - a.length);
+
+    document.querySelector("#found-words").innerHTML = [...li].join('<br>');
+}
+
+function createTile(letter, tileNumber) {
+    let tile = document.createElement("div");
+    tile.classList.add("tile");
+    //tile.addEventListener('click', () => handleClick(gameNumber, tileNumber, tile));
+    tile.id = `tile-${tileNumber}`;
+    tile.innerHTML = letter;
+    return tile;
+}
+
+function loadGrid(letters) {
+    grid = document.querySelector(`#grid`);
+    if (grid == undefined) {
+        return;
+    }
+    grid.innerHTML = ""
+
+    var table = document.createElement("table")
+    var tbody = table.createTBody();
+    for (var y = 0; y < letters.length; y++) {
+        var row = tbody.insertRow(y);
+        for (var x = 0; x < letters[y].length; x++) {
+            var cell = row.insertCell(x);
+            cell.textContent = letters[y][x];
+        }
+    }
+
+    grid.appendChild(table);
 }
