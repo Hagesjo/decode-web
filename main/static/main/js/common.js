@@ -35,6 +35,9 @@ $(document).ready(function() {
     });
 
     //group-buttons
+    $('#fivebin').click(function() {
+        groupbylength('#binary', 5, binarydecode);
+    });
     $('#eightbin').click(function() {
         groupbylength('#binary', 8, binarydecode);
     });
@@ -198,6 +201,10 @@ function hexdecode(text) {
 
 function groupbylength(selector, size, decodefun) {
     text = $(selector).val().replace(/\s/g, "");
+    if (text.length % size != 0) {
+        text = "0".repeat(size - (text.length % size)) + text;
+    }
+
     outp = "";
     for (i = 0; i < text.length; i++) {
         outp += text[i];
