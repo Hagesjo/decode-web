@@ -26,6 +26,29 @@ function highlightLetters(letters) {
     });
 }
 
+function range(start, end, step = 1) {
+    if (start == end) {
+        return [start]
+    }
+
+    if ((start < end && step < 0) || (start > end && step > 0)) {
+        return [];
+    }
+
+    let result = [];
+
+    if (start <= end) {
+        for (let i = start; i <= end; i += step) {
+            result.push(i);
+        }
+    } else {
+        for (let i = start; i >= end; i += step) {
+            result.push(i);
+        }
+    }
+
+    return result;
+}
 
 // Only works for square matrixes with this approach
 function parseWordMatrix(text) {
@@ -36,73 +59,133 @@ function parseWordMatrix(text) {
     }
     // parse rows
     var rows = [];
-    var ret = new Set();
+    var ret = [];
+    var ref = [];
+
     // Cleanup, remove all whitespace
     splitted = text.trim().split('\n')
     splitted.forEach( (row, i) => {
         splitted[i] = row.replace(/\s/g, '');
     });
     loadGrid(splitted);
-    splitted.forEach((row) => {
+    splitted.forEach((row, i) => {
         rows.push(row.split(""));
-        ret.add(row);
-        ret.add(row.split("").reverse().join(""));
+        ret.push(row);
+        ref.push(range(row.length * i, row.length * (i+1)-1));
+        ret.push(row.split("").reverse().join(""));
+        ref.push(range(row.length * (i+1)-1, row.length * i, -1));
     });
 
     // parse columns
     var columns = [];
+    var refColumns = [];
     for (colIndex = 0; colIndex < rows[0].length; colIndex ++) {
-        column = []
+        var column = []
+        var refcolumn = []
         for (rowIndex = 0; rowIndex < rows.length; rowIndex++) {
             column.push( rows[rowIndex][colIndex]);
+            refcolumn.push(rows[0].length * rowIndex + colIndex)
         }
-        ret.add(column.join(""))
-        ret.add(column.reverse().join(""))
+        ret.push(column.join(""))
+        ref.push(refcolumn);
+        ret.push(column.reverse().join(""))
+        ref.push(refcolumn.toReversed());
         columns.push(column)
+        refColumns.push(refcolumn);
     }
 
     // parse diagonals
     for (i = 0; i < rows.length; i++) {
         diagonalStart = [];
         diagonalEnd = [];
+        refDiagonalStart = [];
+        refDiagonalEnd = [];
         for (j = 0; j + i < rows.length; j++) {
             if (j >= rows[i].length) {
                 continue;
             }
             end = rows[i+j].length - 1
             diagonalStart.push(rows[i+j][j]);
+            refDiagonalStart.push((i+j) * rows[0].length + j)
             diagonalEnd.push(rows[i+j][end - j]);
+            refDiagonalEnd.push((i+j) * rows[0].length + end - j)
         }
-        ret.add(diagonalStart.join(""))
-        ret.add(diagonalStart.reverse().join(""))
-        ret.add(diagonalEnd.join(""))
-        ret.add(diagonalEnd.reverse().join(""))
+        ret.push(diagonalStart.join(""))
+        ref.push(refDiagonalStart)
+        ret.push(diagonalStart.reverse().join(""))
+        ref.push(refDiagonalStart.toReversed())
+        ret.push(diagonalEnd.join(""))
+        ref.push(refDiagonalEnd)
+        ret.push(diagonalEnd.reverse().join(""))
+        ref.push(refDiagonalEnd.toReversed())
     }
 
     for (i = 0; i < columns.length; i++) {
         diagonalStart = [];
         diagonalEnd = [];
+        refDiagonalStart = [];
+        refDiagonalEnd = [];
         for (j = 0; j + i < columns.length; j++) {
             if (j >= columns[i].length) {
                 continue;
             }
             end = columns[i+j].length - 1
             diagonalStart.push(columns[i+j][j]);
+            refDiagonalStart.push(refColumns[i+j][end-j])
             diagonalEnd.push(columns[i+j][end - j]);
+            refDiagonalEnd.push(refColumns[i+j][j])
         }
-        ret.add(diagonalStart.join(""))
-        ret.add(diagonalStart.reverse().join(""))
-        ret.add(diagonalEnd.join(""))
-        ret.add(diagonalEnd.reverse().join(""))
+        ret.push(diagonalStart.join(""))
+        ref.push(refDiagonalStart)
+        ret.push(diagonalStart.reverse().join(""))
+        ref.push(refDiagonalStart.toReversed())
+        ret.push(diagonalEnd.join(""))
+        ref.push(refDiagonalEnd)
+        ret.push(diagonalEnd.reverse().join(""))
+        ref.push(refDiagonalEnd.toReversed())
     }
-    return ret;
+
+    return {"rows": ret, "refRows": ref};
+}
+
+function addWord(word, ref) {
+    const li = document.createElement("li");
+    li.innerHTML = word;
+    li.addEventListener('mouseenter', () => {handleHover(ref)});
+    const foundWordsElem = document.querySelector("#found-words")
+    foundWordsElem.appendChild(li);
+    foundWordsElem.addEventListener('mouseleave', () => {resetAfter(50)});
+}
+
+function handleHover(ref) {
+    document.querySelectorAll("td").forEach(elem => {
+        elem.style.background = 'none'
+    })
+
+    ref.forEach((id) => {
+        let elem = document.querySelector(`#ref-${id}`);
+        elem.style.background = "green";
+    });
+}
+
+function resetAfter(delay) {
+    setTimeout(
+        (() => {
+        document.querySelectorAll("td").forEach(elem => {
+            elem.style.background = 'none'
+        })
+    }), delay);
 }
 
 function findWordsInMatrix(text) {
+    document.querySelector("#found-words").innerHTML = "";
+
     var minLength = parseInt(document.querySelector('#min-word-length').value);
-    rows = parseWordMatrix(text);
-    found = new Set();
-    rows.forEach( row => {
+    let { rows, refRows } = parseWordMatrix(text);
+    foundS = new Set();
+    found = [];
+    let refs = [];
+    rows.forEach( (row, rowIndex) => {
         row = row.toLowerCase();
         for (i = 0; i <= row.length; i++) {
             for (j = i + 1; j <= row.length; j++) {
@@ -111,21 +194,31 @@ function findWordsInMatrix(text) {
                 }
                 word = row.substring(i, j)
                 if (words.has(word)) {
-                    found.add(word)
+                    if (foundS.has(word)) {
+                        continue
+                    }
+                    foundS.add(word)
+                    found.push(word);
+                    refs.push(refRows[rowIndex].slice(i, j));
                 }
             }
         }
     });
-    let li = Array.from(found)
-    li.sort((a, b) => b.length - a.length);
+    // Now, we have to be careful to not mess up the order of refs vs found.
+    d = {}
+    for (let i = 0; i < found.length; i++) {
+        d[found[i]] = refs[i]
+    }
 
-    document.querySelector("#found-words").innerHTML = [...li].join('<br>');
+    found.sort((a, b) => b.length - a.length);
+    found.forEach((word) => {
+        addWord(word, d[word]);
+    });
 }
 
 function createTile(letter, tileNumber) {
     let tile = document.createElement("div");
     tile.classList.add("tile");
-    //tile.addEventListener('click', () => handleClick(gameNumber, tileNumber, tile));
     tile.id = `tile-${tileNumber}`;
     tile.innerHTML = letter;
     return tile;
@@ -140,10 +233,13 @@ function loadGrid(letters) {
 
     var table = document.createElement("table")
     var tbody = table.createTBody();
+    let i = 0
     for (var y = 0; y < letters.length; y++) {
         var row = tbody.insertRow(y);
         for (var x = 0; x < letters[y].length; x++) {
             var cell = row.insertCell(x);
+            cell.setAttribute("id", `ref-${i}`)
+            i += 1
             cell.textContent = letters[y][x];
         }
     }
