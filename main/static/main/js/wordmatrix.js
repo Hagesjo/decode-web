@@ -16,10 +16,13 @@ $(document).ready(function() {
 function highlightLetters(letters) {
     var elems = document.querySelectorAll('td')
     elems.forEach((elem) => {
-        elem.style.background = 'none';
+        if (!elem.classList.contains("locked")) {
+            elem.style.background = 'none';
+        }
         for (var i = 0; i < letters.length; i++) {
             if (elem.textContent.toLowerCase() === letters[i].toLowerCase()) {
                 elem.style.background = '#21f821';
+                elem.classList.add("locked");
             }
 
         }
@@ -152,19 +155,39 @@ function addWord(word, ref) {
     const li = document.createElement("li");
     li.innerHTML = word;
     li.addEventListener('mouseenter', () => {handleHover(ref)});
+    li.addEventListener('click', () => {handleClick(li, ref)});
     const foundWordsElem = document.querySelector("#found-words")
     foundWordsElem.appendChild(li);
     foundWordsElem.addEventListener('mouseleave', () => {resetAfter(50)});
 }
 
+function handleClick(li, ref) {
+    li.classList.toggle("locked")
+    shouldLock = li.classList.contains("locked")
+    if (shouldLock) {
+        li.style.background = "#21f821";
+    } else {
+        li.style.background = "none";
+    }
+
+    ref.forEach((id) => {
+        let elem = document.querySelector(`#ref-${id}`);
+        if (shouldLock) {
+            elem.classList.add("locked")
+        } else {
+            elem.classList.remove("locked")
+        }
+    });
+}
+
 function handleHover(ref) {
-    document.querySelectorAll("td").forEach(elem => {
+    document.querySelectorAll("td:not(.locked)").forEach(elem => {
         elem.style.background = 'none'
     })
 
     ref.forEach((id) => {
         let elem = document.querySelector(`#ref-${id}`);
-        elem.style.background = "green";
+        elem.style.background = "yellow";
     });
 }
 
@@ -172,7 +195,11 @@ function resetAfter(delay) {
     setTimeout(
         (() => {
         document.querySelectorAll("td").forEach(elem => {
-            elem.style.background = 'none'
+            if (elem.classList.contains("locked")) {
+                elem.style.background = "#21f821";
+            } else {
+                elem.style.background = "none";
+            }
         })
     }), delay);
 }
