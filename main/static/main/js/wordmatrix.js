@@ -221,7 +221,13 @@ function findWordsInMatrix(text) {
         d[found[i]] = refs[i]
     }
 
-    found.sort((a, b) => b.length - a.length);
+    found.sort((a, b) => {
+        if (b.length == a.length) {
+            return a < b
+        }
+
+        return b.length - a.length
+    });
     found.forEach((word) => {
         addWord(word, d[word]);
     });
