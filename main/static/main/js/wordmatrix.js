@@ -16,13 +16,10 @@ $(document).ready(function() {
 function highlightLetters(letters) {
     var elems = document.querySelectorAll('td')
     elems.forEach((elem) => {
-        if (!elem.classList.contains("locked")) {
-            elem.style.background = 'none';
-        }
+        elem.classList.remove("locked-highlight")
         for (var i = 0; i < letters.length; i++) {
             if (elem.textContent.toLowerCase() === letters[i].toLowerCase()) {
-                elem.style.background = '#21f821';
-                elem.classList.add("locked");
+                elem.classList.add("locked-highlight");
             }
 
         }
@@ -164,11 +161,6 @@ function addWord(word, ref) {
 function handleClick(li, ref) {
     li.classList.toggle("locked")
     shouldLock = li.classList.contains("locked")
-    if (shouldLock) {
-        li.style.background = "#21f821";
-    } else {
-        li.style.background = "none";
-    }
 
     ref.forEach((id) => {
         let elem = document.querySelector(`#ref-${id}`);
@@ -181,13 +173,9 @@ function handleClick(li, ref) {
 }
 
 function handleHover(ref) {
-    document.querySelectorAll("td:not(.locked)").forEach(elem => {
-        elem.style.background = 'none'
-    })
-
     ref.forEach((id) => {
         let elem = document.querySelector(`#ref-${id}`);
-        elem.style.background = "yellow";
+        elem.classList.add("hovered");
     });
 }
 
@@ -195,11 +183,7 @@ function resetAfter(delay) {
     setTimeout(
         (() => {
         document.querySelectorAll("td").forEach(elem => {
-            if (elem.classList.contains("locked")) {
-                elem.style.background = "#21f821";
-            } else {
-                elem.style.background = "none";
-            }
+            elem.classList.remove("hovered");
         })
     }), delay);
 }
