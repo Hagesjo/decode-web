@@ -223,7 +223,7 @@ function findWordsInMatrix(text) {
 
     found.sort((a, b) => {
         if (b.length == a.length) {
-            return a < b
+            return a.localeCompare(b)
         }
 
         return b.length - a.length
