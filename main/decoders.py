@@ -86,7 +86,7 @@ def rot13(data):
 
 def base64(data):
     try:
-        ret = {'valid_input' : True, 'output' : b64decode(data).encode('utf-8')}
+        ret = {'valid_input' : True, 'output' : b64decode(data).decode('utf-8')}
     except:
         ret = {'valid_input' : False, 'output' : ''}
     return json.dumps(ret)
